@@ -1,5 +1,7 @@
 package com.example.designflaws.rmpopular;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,33 +9,39 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class MainActivity extends ActionBarActivity {
 
+public class MainActivity extends Activity {
+    ListView listview;
+    ListViewAdapter adapter;
+    ProgressDialog mProgressDialog;
+    ArrayList<HashMap<String, String>> arraylist;
+    final String bothURL = "http://rapidmoviez.com/releases/popxml/b";
+    final String moviesURL = "http://rapidmoviez.com/releases/popxml/m";
+    final String showsURL = "http://rapidmoviez.com/releases/popxml/s";
+    static String TITLE = "TITLE";
+    static String POSTER = "POSTER";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final String bothURL = "http://rapidmoviez.com/releases/popxml/b";
-        final String moviesURL = "http://rapidmoviez.com/releases/popxml/m";
-        final String showsURL = "http://rapidmoviez.com/releases/popxml/s";
-
-
-
         //Get New Titles On Startup
-        ( new ParseURL() ).execute(new String[]{bothURL});
+        new ParseURL().execute();
 
-
-    }
+     }
 
 
     @Override
@@ -59,56 +67,76 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    private class ParseURL extends AsyncTask<String, Void, String> {
-
+    private class ParseURL extends AsyncTask<Void, Void, Void> {
         @Override
-        protected String doInBackground(String... strings) {
-            StringBuffer buffer = new StringBuffer();
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            mProgressDialog = new ProgressDialog(MainActivity.this);
+            // Set progressdialog title
+            mProgressDialog.setTitle("Android Jsoup ListView Tutorial");
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            arraylist = new ArrayList<HashMap<String, String>>();
             try {
-                Log.d("JSwa", "Connecting to [" + strings[0] + "]");
-                Document doc = Jsoup.connect(strings[0]).get();
-                Log.d("JSwa", "Connected to [" + strings[0] + "]");
+
+                Log.d("JSwa", "Connecting to [" + bothURL + "]");
+                Document doc = Jsoup.connect(bothURL).get();
+                Log.d("JSwa", "Connected to [" + bothURL + "]");
                 // Get document (HTML page) title
                 String title = doc.title();
                 Log.d("JSwA", "Title [" + title + "]");
-                buffer.append("Title: " + title + "\r\n");
 
                 // Get meta info
                 Elements metaElems = doc.select("photo");
-                buffer.append("META DATA\r\n");
+
                 for (Element metaElem : metaElems) {
-                    String name = metaElem.attr("image");
-                    String content = metaElem.attr("url");
+                    HashMap<String, String> map = new HashMap<String, String>();
+
+                    String image = metaElem.attr("image");
+                    String url = metaElem.attr("url");
                     String msText = metaElem.text();
-                    buffer.append("name [" + name + "] - content [" + content + "] \r\n");
-                    Log.d("JSwa", content);
 
-                    Log.d("JSwa", name);
 
-                    Log.d("JSwa", msText);
+                    map.put("title", msText);
+                    map.put("poster", image);
+
+                    arraylist.add(map);
+                    for (String key: map.keySet()) {
+
+                        System.out.println("key : " + key);
+                        System.out.println("value : " + map.get(key));
+                    }
 
                 }
 
-                Elements topicList = doc.select("h2.topic");
-                buffer.append("Topic list\r\n");
-                for (Element topic : topicList) {
-                    String data = topic.text();
 
-                    buffer.append("Data [" + data + "] \r\n");
-                }
-
-            } catch (Throwable t) {
-                t.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
 
-            return buffer.toString();
+            return null;
         }
 
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //respText.setText(s);
+        protected void onPostExecute(Void result) {
+            // Locate the listview in listview_main.xml
+            listview = (ListView) findViewById(R.id.listView);
+            // Pass the results into ListViewAdapter.java
+            adapter = new ListViewAdapter(MainActivity.this, arraylist);
+            // Set the adapter to the ListView
+            listview.setAdapter(adapter);
+            // Close the progressdialog
+            mProgressDialog.dismiss();
         }
     }
 
