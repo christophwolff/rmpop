@@ -32,8 +32,8 @@ public class MainActivity extends Activity {
     final String bothURL = "http://rapidmoviez.com/releases/popxml/b";
     final String moviesURL = "http://rapidmoviez.com/releases/popxml/m";
     final String showsURL = "http://rapidmoviez.com/releases/popxml/s";
-    static String TITLE = "TITLE";
-    static String POSTER = "POSTER";
+    static String TITLE = "title";
+    static String POSTER = "poster";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,15 +105,11 @@ public class MainActivity extends Activity {
                     String msText = metaElem.text();
 
 
-                    map.put("title", msText);
-                    map.put("poster", image);
+                    map.put("title", metaElem.text());
+                    map.put("poster", metaElem.attr("image"));
 
                     arraylist.add(map);
-                    for (String key: map.keySet()) {
 
-                        System.out.println("key : " + key);
-                        System.out.println("value : " + map.get(key));
-                    }
 
                 }
 
