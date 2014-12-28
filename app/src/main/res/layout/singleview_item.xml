@@ -1,14 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/Titlelabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title" />
+        android:text="@string/titlelable" />
 
-
+    <TextView
+        android:id="@+id/imdb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/Titlelabel" />
 
     <ImageView
         android:id="@+id/poster"
@@ -17,16 +22,5 @@
         android:layout_alignParentRight="true"
         android:background="#000000"
         android:padding="1dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/latestrls"
-        android:layout_below="@+id/title"
-        android:layout_toLeftOf="@+id/poster"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

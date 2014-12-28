@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     final String showsURL = "http://rapidmoviez.com/releases/popxml/s";
     static String TITLE = "title";
     static String POSTER = "poster";
+    static String URL = "url";
+    static String LATESTRLS = "latestrls";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,9 +106,16 @@ public class MainActivity extends Activity {
                     String url = metaElem.attr("url");
                     String msText = metaElem.text();
 
+                    //Document detaildoc = Jsoup.connect("http://rapidmoviez.com" + url).get();
+
+                    //Elements latestreleaseElems = detaildoc.select("ul.allrls:first-child");
+
+                    //Log.d("Lastest", latestreleaseElems.first().text());
 
                     map.put("title", metaElem.text());
-                    map.put("poster", metaElem.attr("image"));
+                    map.put("poster", "http://rapidmoviez.com/" + metaElem.attr("image"));
+                    //map.put("latestrls", latestreleaseElems.text());
+                    map.put("url", metaElem.attr("url"));
 
                     arraylist.add(map);
 

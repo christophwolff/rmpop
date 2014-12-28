@@ -1,5 +1,7 @@
 package com.example.designflaws.rmpopular;
 import java.io.File;
+import java.net.URLEncoder;
+
 import android.content.Context;
 
 public class FileCache {
@@ -12,7 +14,7 @@ public class FileCache {
                 android.os.Environment.MEDIA_MOUNTED))
             cacheDir = new File(
                     android.os.Environment.getExternalStorageDirectory(),
-                    "JsonParseTutorialCache");
+                    "rmpopular");
         else
             cacheDir = context.getCacheDir();
         if (!cacheDir.exists())
@@ -21,7 +23,7 @@ public class FileCache {
 
     public File getFile(String url) {
         String filename = String.valueOf(url.hashCode());
-        // String filename = URLEncoder.encode(url);
+        //String filename = URLEncoder.encode(url);
         File f = new File(cacheDir, filename);
         return f;
 

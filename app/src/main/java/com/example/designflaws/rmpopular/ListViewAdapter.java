@@ -25,7 +25,7 @@ public class ListViewAdapter extends BaseAdapter {
                            ArrayList<HashMap<String, String>> arraylist) {
         this.context = context;
         data = arraylist;
-        //imageLoader = new ImageLoader(context);
+        imageLoader = new ImageLoader(context);
     }
 
     @Override
@@ -47,6 +47,7 @@ public class ListViewAdapter extends BaseAdapter {
         // Declare Variables
         TextView title;
         ImageView poster;
+        TextView latestrls;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -57,16 +58,18 @@ public class ListViewAdapter extends BaseAdapter {
         // Locate the TextViews in listview_item.xml
         title = (TextView) itemView.findViewById(R.id.title);
 
+        latestrls = (TextView) itemView.findViewById(R.id.latestrls);
 
         // Locate the ImageView in listview_item.xml
-        //poster = (ImageView) itemView.findViewById(R.id.poster);
+        poster = (ImageView) itemView.findViewById(R.id.poster);
         title.setText(resultp.get(MainActivity.TITLE));
+        latestrls.setText(resultp.get(MainActivity.LATESTRLS));
 
         // Capture position and set results to the ImageView
         // Passes flag images URL into ImageLoader.class
-        //imageLoader.DisplayImage(resultp.get(MainActivity.POSTER), poster);
+        imageLoader.DisplayImage(resultp.get(MainActivity.POSTER), poster);
         // Capture ListView item click
-       /*
+
         itemView.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -75,18 +78,14 @@ public class ListViewAdapter extends BaseAdapter {
                 resultp = data.get(position);
                 Intent intent = new Intent(context, SingleItemView.class);
                 // Pass all data rank
-                intent.putExtra("rank", resultp.get(MainActivity.RANK));
-                // Pass all data country
-                intent.putExtra("country", resultp.get(MainActivity.COUNTRY));
-                // Pass all data population
-                intent.putExtra("population",resultp.get(MainActivity.POPULATION));
-                // Pass all data flag
-                intent.putExtra("flag", resultp.get(MainActivity.FLAG));
+                intent.putExtra("title", resultp.get(MainActivity.TITLE));
+                intent.putExtra("poster", resultp.get(MainActivity.POSTER));
+                intent.putExtra("url", resultp.get(MainActivity.URL));
                 // Start SingleItemView Class
                 context.startActivity(intent);
 
             }
-        });*/
+        });
         return itemView;
     }
 }
