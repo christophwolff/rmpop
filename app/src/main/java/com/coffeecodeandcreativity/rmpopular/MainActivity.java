@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-
-import com.coffeecodeandcreativity.rmpopular.R;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,27 +24,45 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener {
     ListView listview;
     ListViewAdapter adapter;
     ProgressDialog mProgressDialog;
     ArrayList<HashMap<String, String>> arraylist;
+    private SwipeRefreshLayout mSwipeLayout;
     final String bothURL = "http://rapidmoviez.com/releases/popxml/b";
     final String moviesURL = "http://rapidmoviez.com/releases/popxml/m";
     final String showsURL = "http://rapidmoviez.com/releases/popxml/s";
+    int helper;
     static String TITLE = "title";
     static String POSTER = "poster";
     static String URL = "url";
     static String YEAR = "year";
     static String LATESTRLS = "latestrls";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Get New Titles On Startup
+        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorSchemeResources(android.R.color.primary_text_light,
+                android.R.color.holo_green_light, android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        helper = 1;
         new ParseURL().execute();
 
      }
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeLayout.setRefreshing(false);
+                new ParseURL().execute();
+            }
+        }, 5000);
+    }
 
 
     @Override
@@ -77,12 +95,16 @@ public class MainActivity extends Activity {
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(MainActivity.this);
             // Set progressdialog title
-            mProgressDialog.setTitle("Android Jsoup ListView Tutorial");
+            mProgressDialog.setTitle("RM Popular");
             // Set progressdialog message
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
-            mProgressDialog.show();
+            if (helper == 1){
+                mProgressDialog.show();
+
+            }
+
         }
         @Override
         protected Void doInBackground(Void... params) {
@@ -154,7 +176,12 @@ public class MainActivity extends Activity {
             // Set the adapter to the ListView
             listview.setAdapter(adapter);
             // Close the progressdialog
-            mProgressDialog.dismiss();
+
+            if (helper == 1){
+                mProgressDialog.dismiss();
+                helper = 0;
+            }
+
         }
     }
 
