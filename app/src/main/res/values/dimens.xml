@@ -5,6 +5,7 @@
 
 
         <dimen name="title">14dp</dimen>
+        <dimen name="titleSingle">24dp</dimen>
         <dimen name="rating">15dip</dimen>
         <dimen name="genre">13dip</dimen>
         <dimen name="year">12dip</dimen>

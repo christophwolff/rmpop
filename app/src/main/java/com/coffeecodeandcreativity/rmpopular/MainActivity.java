@@ -34,11 +34,12 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
     final String moviesURL = "http://rapidmoviez.com/releases/popxml/m";
     final String showsURL = "http://rapidmoviez.com/releases/popxml/s";
     int helper;
+
     static String TITLE = "title";
     static String POSTER = "poster";
     static String URL = "url";
     static String YEAR = "year";
-    static String LATESTRLS = "latestrls";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,14 +130,6 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
                     String url = metaElem.attr("url");
                     String msText = metaElem.text();
 
-                    //Document detaildoc = Jsoup.connect("http://rapidmoviez.com" + url).get();
-
-                    //Elements latestreleaseElems = detaildoc.select("ul.allrls:first-child");
-
-                    //Log.d("Lastest", latestreleaseElems.first().text());
-
-
-
 
                     Pattern pattern = Pattern.compile("\\(.*\\)");
                     Matcher matcher = pattern.matcher(msText);
@@ -149,7 +142,7 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
                     }
 
                     map.put("poster", "http://rapidmoviez.com/" + metaElem.attr("image"));
-                    //map.put("latestrls", latestreleaseElems.text());
+
                     map.put("url", metaElem.attr("url"));
 
                     arraylist.add(map);

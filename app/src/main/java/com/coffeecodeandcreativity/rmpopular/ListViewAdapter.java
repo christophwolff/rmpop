@@ -12,8 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.coffeecodeandcreativity.rmpopular.R;
-
 public class ListViewAdapter extends BaseAdapter {
 
     // Declare Variables
@@ -49,7 +47,6 @@ public class ListViewAdapter extends BaseAdapter {
         // Declare Variables
         TextView title;
         ImageView poster;
-        TextView latestrls;
         TextView year;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,14 +58,11 @@ public class ListViewAdapter extends BaseAdapter {
         // Locate the TextViews in listview_item.xml
         title = (TextView) itemView.findViewById(R.id.title);
 
-        latestrls = (TextView) itemView.findViewById(R.id.latestrls);
-
         year = (TextView) itemView.findViewById(R.id.year);
 
         // Locate the ImageView in listview_item.xml
         poster = (ImageView) itemView.findViewById(R.id.poster);
         title.setText(resultp.get(MainActivity.TITLE));
-        latestrls.setText(resultp.get(MainActivity.LATESTRLS));
         year.setText(resultp.get(MainActivity.YEAR));
 
         // Capture position and set results to the ImageView
