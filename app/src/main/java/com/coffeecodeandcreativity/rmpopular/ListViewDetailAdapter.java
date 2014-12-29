@@ -1,6 +1,9 @@
 package com.coffeecodeandcreativity.rmpopular;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +49,7 @@ public class ListViewDetailAdapter extends BaseAdapter {
         // Declare Variables
 
         TextView latestrls;
+        TextView rmlink;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -56,6 +60,25 @@ public class ListViewDetailAdapter extends BaseAdapter {
 
         latestrls.setText(resultp.get(SingleItemView.LATESTRLS));
 
+
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            String RMLINKresult = resultp.get(SingleItemView.RMLink);
+            @Override
+            public void onClick(View arg0) {
+                // Get the position
+                resultp = data.get(position);
+                Uri uriUrl = Uri.parse("http://rapidmoviez.com" + RMLINKresult);
+                        // Pass all data rank
+                        Log.d("LINKS", RMLINKresult);
+                // Start SingleItemView Class
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                context.startActivity(launchBrowser);
+
+
+
+            }
+        });
         return itemView;
     }
 }

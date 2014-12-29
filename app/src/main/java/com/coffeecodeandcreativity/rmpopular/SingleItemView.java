@@ -116,17 +116,21 @@ public class SingleItemView extends Activity {
 
 
                   Log.d("elemente", metaElems.text());
+
                 for (Element metaElem : metaElems) {
                     HashMap<String, String> map = new HashMap<String, String>();
 
-                    Elements URLLink = metaElem.select("a[herf]");
-                    map.put("RMLINK", URLLink.text());
 
+                    // map.put("RMLINK", URLLinks.text());
+                    // Log.d("LINK", URLLinks.text());
                     map.put("latestrls", metaElem.text());
-
+                    map.put("RMLINK", metaElem.select("a").attr("href"));
+                    Log.d("Link",  metaElem.select("a").attr("href"));
                     arraylist.add(map);
 
                 }
+
+
 
                 Elements imdbLink = docdetail.select(".imdbref a[href]");
 
@@ -138,10 +142,6 @@ public class SingleItemView extends Activity {
                 Log.d("elemente IMDB", imdbElems.text());
 
                 imdb = imdbElems.text();
-
-
-
-
 
             } catch (IOException e) {
 
