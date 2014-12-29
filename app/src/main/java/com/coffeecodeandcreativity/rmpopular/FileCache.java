@@ -1,4 +1,4 @@
-package com.example.designflaws.rmpopular;
+package com.coffeecodeandcreativity.rmpopular;
 import java.io.File;
 import java.net.URLEncoder;
 

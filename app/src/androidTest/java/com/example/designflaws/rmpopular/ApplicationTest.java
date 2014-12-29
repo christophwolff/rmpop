@@ -1,4 +1,4 @@
-package com.example.designflaws.rmpopular;
+package com.coffeecodeandcreativity.rmpopular;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

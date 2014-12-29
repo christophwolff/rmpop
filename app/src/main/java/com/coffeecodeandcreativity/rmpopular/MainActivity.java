@@ -1,18 +1,16 @@
-package com.example.designflaws.rmpopular;
+package com.coffeecodeandcreativity.rmpopular;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+
+
+import com.coffeecodeandcreativity.rmpopular.R;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +20,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends Activity {
@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
     static String TITLE = "title";
     static String POSTER = "poster";
     static String URL = "url";
+    static String YEAR = "year";
     static String LATESTRLS = "latestrls";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +113,19 @@ public class MainActivity extends Activity {
 
                     //Log.d("Lastest", latestreleaseElems.first().text());
 
-                    map.put("title", metaElem.text());
+
+
+
+                    Pattern pattern = Pattern.compile("\\(.*\\)");
+                    Matcher matcher = pattern.matcher(msText);
+                   // Log.d("matcher", matcher.group(1).toString());
+                    while (matcher.find()) { // Find each match in turn; String can't do this.
+                        String year = matcher.group(0); // Access a submatch group; String can't do this.
+                        Log.d("matcher", year);
+                        map.put("title", msText.replace(year, ""));
+                        map.put("year", year);
+                    }
+
                     map.put("poster", "http://rapidmoviez.com/" + metaElem.attr("image"));
                     //map.put("latestrls", latestreleaseElems.text());
                     map.put("url", metaElem.attr("url"));
@@ -124,7 +137,7 @@ public class MainActivity extends Activity {
 
 
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
 

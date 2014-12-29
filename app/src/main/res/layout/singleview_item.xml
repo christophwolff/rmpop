@@ -7,7 +7,9 @@
         android:id="@+id/Titlelabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/titlelable" />
+        android:text="@string/titlelable"
+        android:layout_alignTop="@+id/poster"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/imdb"
@@ -17,10 +19,16 @@
 
     <ImageView
         android:id="@+id/poster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="#000000"
-        android:padding="1dp" />
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/imdb"
+        android:layout_toLeftOf="@+id/Titlelabel"
+        android:layout_toStartOf="@+id/Titlelabel"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginTop="74dp" />
 
 </RelativeLayout>

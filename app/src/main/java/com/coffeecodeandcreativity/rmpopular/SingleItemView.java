@@ -1,4 +1,4 @@
-package com.example.designflaws.rmpopular;
+package com.coffeecodeandcreativity.rmpopular;
 
 /**
  * Created by christoph on 28.12.14.
@@ -9,10 +9,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
+import com.coffeecodeandcreativity.rmpopular.R;
 
 public class SingleItemView extends Activity {
     // Declare Variables

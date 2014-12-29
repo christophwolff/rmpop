@@ -1,4 +1,4 @@
-package com.example.designflaws.rmpopular;
+package com.coffeecodeandcreativity.rmpopular;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.coffeecodeandcreativity.rmpopular.R;
 
 public class ListViewAdapter extends BaseAdapter {
 
@@ -48,6 +50,7 @@ public class ListViewAdapter extends BaseAdapter {
         TextView title;
         ImageView poster;
         TextView latestrls;
+        TextView year;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -60,10 +63,13 @@ public class ListViewAdapter extends BaseAdapter {
 
         latestrls = (TextView) itemView.findViewById(R.id.latestrls);
 
+        year = (TextView) itemView.findViewById(R.id.year);
+
         // Locate the ImageView in listview_item.xml
         poster = (ImageView) itemView.findViewById(R.id.poster);
         title.setText(resultp.get(MainActivity.TITLE));
         latestrls.setText(resultp.get(MainActivity.LATESTRLS));
+        year.setText(resultp.get(MainActivity.YEAR));
 
         // Capture position and set results to the ImageView
         // Passes flag images URL into ImageLoader.class
@@ -81,6 +87,7 @@ public class ListViewAdapter extends BaseAdapter {
                 intent.putExtra("title", resultp.get(MainActivity.TITLE));
                 intent.putExtra("poster", resultp.get(MainActivity.POSTER));
                 intent.putExtra("url", resultp.get(MainActivity.URL));
+                intent.putExtra("year", resultp.get(MainActivity.YEAR));
                 // Start SingleItemView Class
                 context.startActivity(intent);
 

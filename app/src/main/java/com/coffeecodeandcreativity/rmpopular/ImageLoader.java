@@ -1,4 +1,4 @@
-package com.example.designflaws.rmpopular;
+package com.coffeecodeandcreativity.rmpopular;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +19,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
+
+import com.coffeecodeandcreativity.rmpopular.R;
 
 public class ImageLoader {
 
