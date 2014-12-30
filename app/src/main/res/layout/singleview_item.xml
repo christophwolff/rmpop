@@ -9,15 +9,12 @@
 
         <ImageView
             android:id="@+id/poster"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:layout_gravity="center_horizontal"
             android:layout_alignTop="@+id/scrollView"
             android:layout_alignParentBottom="false"
-            android:baselineAlignBottom="false"
-            android:tintMode="multiply"
-            android:tint="@color/dim_foreground_material_dark" />
+            android:baselineAlignBottom="false" />
     </FrameLayout>
 
     <LinearLayout

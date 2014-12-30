@@ -12,6 +12,9 @@ import android.widget.ListView;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -53,7 +56,9 @@ public class MainActivity extends Activity implements SwipeRefreshLayout.OnRefre
                 android.R.color.holo_red_light);
         helper = 1;
         new ParseURL().execute();
-
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
      }
     public void onRefresh() {
         new Handler().postDelayed(new Runnable() {
